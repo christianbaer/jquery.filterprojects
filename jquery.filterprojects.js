@@ -12,6 +12,7 @@
       activeClass: "active",
       allTag: "all",
       randomize: true,
+      oneFilterOnly: false,
       show: { width: "show", opacity: "show" },
       hide: { width: "hide", opacity: "hide" },
       filterTagSelector: [] // specify at least one 
@@ -68,7 +69,17 @@
               $(j).removeClass(settings.activeClass);
               $(this).addClass(settings.activeClass);
             } else {
-              $(this).hasClass(settings.activeClass) ? $(this).removeClass(settings.activeClass) : $(this).addClass(settings.activeClass);
+              /*$(this).hasClass(settings.activeClass) ? $(this).removeClass(settings.activeClass) : $(this).addClass(settings.activeClass);*/
+              
+              // toggle element
+              if( $(this).hasClass(settings.activeClass) ){
+              	$(this).removeClass(settings.activeClass);
+              } else { 
+              	/* hide all other elements */ 
+              	if(settings.oneFilterOnly) $(j+"."+settings.activeClass).removeClass(settings.activeClass);
+              		
+              	$(this).addClass(settings.activeClass); 
+              }
               $(j+"."+settings.activeClass).length > 0 ? $(j+"."+settings.allTag).removeClass(settings.activeClass) : $(j+"."+settings.allTag).addClass(settings.activeClass);
             }
             /* Triggering the filter */ 
